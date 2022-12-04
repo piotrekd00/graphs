@@ -19,7 +19,7 @@ def add_vertice(matrix, i_vertice):
 
 if __name__ == "__main__":
     matrix, vertice = read_input()
-    if vertice not in range(1, len(matrix)):
+    if vertice not in range(1, len(matrix) + 1):
         print('BŁĄD')
     else:
         add_vertice(matrix, vertice)
