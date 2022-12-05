@@ -15,11 +15,10 @@ def dfs(input_list, start):
     visited = []
     while stack:
         v = stack.pop()
-        visited.append(v)
+        if v not in visited:
+            visited.append(v)
         for edge in sorted(input_list[v - 1][1:], reverse=True):
             if edge not in visited:
-                if edge in stack:
-                    stack.remove(edge)
                 stack.append(edge)
     if len(visited) == len(input_list):
         print('Porządek DFS: ', end='')
