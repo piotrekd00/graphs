@@ -31,7 +31,7 @@ def dfs(input_list, start):
 
 if __name__ == "__main__":
     input_list, start = read_list()
-    if start not in range(1, len(input_list) + 1):
+    if start in range(1, len(input_list) + 1):
         dfs(input_list, start)
     else:
         print('BŁĄD')
