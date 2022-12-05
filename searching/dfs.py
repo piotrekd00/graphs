@@ -21,13 +21,14 @@ def dfs(input_list, start):
                 if edge in stack:
                     stack.remove(edge)
                 stack.append(edge)
-    print('Porządek DFS: ', end='')
-    print(*visited, sep=' ')
     if len(visited) == len(input_list):
-        print(f'Graf jest spójny')
+        print('Porządek DFS: ', end='')
+        print(*visited, sep=' ')
+        print('Graf jest spójny')
+    else:
+        print('Graf jest niespójny')
 
 
 if __name__ == "__main__":
     input_list, start = read_list()
-    print(start)
     dfs(input_list, start)
