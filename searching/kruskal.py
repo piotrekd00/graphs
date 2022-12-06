@@ -22,7 +22,6 @@ def kruskal(edges, v_count):
     min_weight = 0
     parent = list(range(v_count))
     union = [[] for _ in range(v_count)]
-
     for edge in edges:
         parent_x = parent[edge[0]]
         parent_y = parent[edge[1]]
@@ -30,9 +29,9 @@ def kruskal(edges, v_count):
             for val in union[parent_x]:
                 parent[val] = parent_y
                 union[parent_y].append(val)
-            union[parent_y].append(edge[0])
+            union[parent_y].append(parent_x)
             union[parent_x].clear()
-            parent[edge[0]] = parent_y
+            parent[parent_x] = parent_y
             min_weight += edge[2]
     union = list(filter(None, union))
     return min_weight if len(union) == 1 else 'Graf nie jest spójny'
