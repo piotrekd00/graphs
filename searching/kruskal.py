@@ -12,9 +12,6 @@ def read_input():
 def generate_edges(matrix):
     edges = []
     for row_index, row in enumerate(matrix):
-        if row.count(0) == len(row):
-            print('Graf nie jest spójny')
-            return False
         for edge_index, edge in enumerate(row):
             if not edge == 0 and not (edge_index, row_index, edge) in edges:
                 edges.append((row_index, edge_index, edge))
@@ -37,12 +34,11 @@ def kruskal(edges, v_count):
             union[parent_x].clear()
             parent[edge[0]] = parent_y
             min_weight += edge[2]
-    
-    return min_weight
+    union = list(filter(None, union))
+    return min_weight if len(union) == 1 else 'Graf nie jest spójny'
 
 
 if __name__ == "__main__":
     input_matrix = read_input()
     input_edges = generate_edges(input_matrix)
-    if input_edges:
-        print(kruskal(input_edges, len(input_matrix)))
+    print(kruskal(input_edges, len(input_matrix)))
