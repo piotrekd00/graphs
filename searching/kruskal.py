@@ -33,6 +33,8 @@ def kruskal(edges, v_count):
             union[parent_x].clear()
             parent[parent_x] = parent_y
             min_weight += edge[2]
+            if len(union[parent_y]) == v_count - 1:
+                break
     union = list(filter(None, union))
     return min_weight if len(union) == 1 else 'Graf nie jest spójny'
 
