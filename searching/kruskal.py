@@ -4,7 +4,7 @@ from sys import stdin
 def read_input():
     out_matrix = []
     for line in stdin:
-        line = [eval(i) for i in line.rstrip().split(' ')]
+        line = [int(i) for i in line.rstrip().split()]
         out_matrix.append(line)
     return out_matrix
 
@@ -12,6 +12,9 @@ def read_input():
 def generate_edges(matrix):
     edges = []
     for row_index, row in enumerate(matrix):
+        if row.count(0) == len(row):
+            print('Graf nie jest spójny')
+            return False
         for edge_index, edge in enumerate(row):
             if not edge == 0 and not (edge_index, row_index, edge) in edges:
                 edges.append((row_index, edge_index, edge))
@@ -41,4 +44,5 @@ def kruskal(edges, v_count):
 if __name__ == "__main__":
     input_matrix = read_input()
     input_edges = generate_edges(input_matrix)
-    print(kruskal(input_edges, len(input_matrix)))
+    if input_edges:
+        print(kruskal(input_edges, len(input_matrix)))
