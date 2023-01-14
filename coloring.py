@@ -9,6 +9,13 @@ def read_list():
     return out_list
 
 
+def directed_to_undirected(input_list):
+    for vertice in range(len(input_list)):
+        for edge in input_list[vertice - 1][1:]:
+            input_list[edge - 1].append(vertice) if vertice not in input_list[edge - 1] else None 
+    return input_list
+
+
 def degree_sequence(input_list):
     return [len(vertice) - 1 for vertice in input_list]
 
@@ -24,6 +31,7 @@ def sort_by_degree(input_list):
 def graph_coloring(input_list):
     sequence = sort_by_degree(input_list)    
     color_list = [0 for _ in range(len(input_list))]
+
     def get_neighbours_colors(curr_vertice):
         res = []
         for neighbour in input_list[curr_vertice][1:]:
@@ -38,7 +46,10 @@ def graph_coloring(input_list):
 
     print(*color_list, sep=' ')
     print(f'Liczba chromatyczna == {len(set(color_list))}')
+    
+
 if __name__ == "__main__":
     input_list = read_list()
+    input_list = directed_to_undirected(input_list)
     graph_coloring(input_list)
 
