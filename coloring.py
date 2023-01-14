@@ -8,6 +8,13 @@ def read_list():
         out_list.append(line)
     return out_list
 
+def check_if_directed(input_list):
+    for vertice in range(len(input_list)):
+        for edge in input_list[vertice][1:]:
+            if vertice + 1 not in input_list[edge - 1][1:]:
+                print('UNDIRECTED')
+                return True
+    return False
 
 def directed_to_undirected(input_list):
     for vertice in range(len(input_list)):
@@ -50,6 +57,7 @@ def graph_coloring(input_list):
 
 if __name__ == "__main__":
     input_list = read_list()
-    input_list = directed_to_undirected(input_list)
+    if check_if_directed(input_list):
+        input_list = directed_to_undirected(input_list)
     graph_coloring(input_list)
 
