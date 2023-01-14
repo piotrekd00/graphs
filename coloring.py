@@ -11,8 +11,9 @@ def read_list():
 
 def directed_to_undirected(input_list):
     for vertice in range(len(input_list)):
-        for edge in input_list[vertice - 1][1:]:
-            input_list[edge - 1].append(vertice) if vertice not in input_list[edge - 1] else None 
+        for edge in input_list[vertice][1:]:
+            if vertice + 1 not in input_list[edge - 1][1:]:
+                input_list[edge - 1].append(vertice + 1)
     return input_list
 
 
@@ -31,7 +32,6 @@ def sort_by_degree(input_list):
 def graph_coloring(input_list):
     sequence = sort_by_degree(input_list)    
     color_list = [0 for _ in range(len(input_list))]
-
     def get_neighbours_colors(curr_vertice):
         res = []
         for neighbour in input_list[curr_vertice][1:]:
