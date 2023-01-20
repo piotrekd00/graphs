@@ -17,10 +17,11 @@ def read_list():
 if __name__ == "__main__":
     graph, edges = read_list()
     flag = False
-    for v in edges[0]:
-        if v in edges[1]:
-            flag = True
-
+    for edge in edges:
+        for v in edge:
+            for e in edges:
+                if v in e:
+                    flag = True
     if flag:
         print('Nie jest to skojarzenie')
     else:
