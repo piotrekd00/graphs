@@ -19,7 +19,8 @@ if __name__ == "__main__":
     flag = False
     for edge in edges:
         for v in edge:
-            for e in edges:
+            subset = [x for x in edges if x != edge] 
+            for e in subset:
                 if v in e:
                     flag = True
     if flag:
