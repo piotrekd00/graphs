@@ -27,7 +27,8 @@ def line_graph(input_list):
                 new_edge = tuple(sorted((neighbour, x)))
                 if edge[0][0] in new_edge or edge[0][1] in new_edge:
                     edge.append(new_edge) if new_edge not in edge else None
-        print(*edge, sep=' ')   
+        print(f'{edge[0]} ', end='')
+        print(*sorted(edge[1:]), sep=' ')
 
 
 if __name__ == "__main__":
