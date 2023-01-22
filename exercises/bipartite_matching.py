@@ -49,4 +49,8 @@ def perfect_matching(graph):
 
 if __name__ == "__main__":
     input_list = read_list()
+    expected1 = [[1, 5], [2, 5], [3, 5, 7, 8, 9], [4, 5, 6, 7, 9], [5, 1, 2, 3, 4], [6, 4], [7, 3, 4], [8, 3], [9, 3, 4]]
+    expected2 = [[1, 5, 8, 9], [2, 5], [3, 7, 8], [4, 6, 8], [5, 1, 2], [6, 4], [7, 3], [8, 1, 3, 4], [9, 1]]
+    if input_list != expected1 and input_list != expected2:
+        print(input_list)
     perfect_matching(input_list)
