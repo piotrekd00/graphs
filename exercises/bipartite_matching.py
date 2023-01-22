@@ -30,16 +30,17 @@ def bipartite_check(graph):
 
 def perfect_matching(graph):
     sets = bipartite_check(graph)
-    neighbours = [graph[v - 1][1:] for v in sets[1]]
+    subset = sets[1] if len(sets[1]) <= len(sets[2]) else sets[2]
+    neighbours = [graph[v - 1][1:] for v in subset]
     matches = []
-    for vertice in sets[1]:
+    for vertice in subset:
         merged_neighbours = sum(neighbours[1:], []) 
         for neighbour in neighbours[0]:
             if neighbour not in merged_neighbours:
                 matches.append((vertice, neighbour))
                 neighbours.pop(0)
                 break
-    if len(matches) == len(sets[1]):
+    if len(matches) == len(subset):
         print('Istnieje skojarzenie doskonałe')
     else:
         print('Nie istnieje skojarzenie doskonałe')
