@@ -33,24 +33,42 @@ def perfect_matching(graph):
     subset = sets[1] if len(sets[1]) <= len(sets[2]) else sets[2]
     neighbours = [graph[v - 1][1:] for v in subset]
     matches = []
-    for vertice in subset:
-        merged_neighbours = sum(neighbours[1:], []) 
-        for neighbour in neighbours[0]:
-            if neighbour not in merged_neighbours:
-                matches.append((vertice, neighbour))
-                neighbours.pop(0)
+    done = False
+    iterations = {v:0 for v in subset}
+    while not done:
+        for vertice in subset:
+            local_iteration = iterations[vertice] 
+            added = False
+            impossible = False
+            wrong_value = None
+            merged_matches = sum(matches, [])
+            local_neighbours = graph[vertice - 1][1:]
+            while not added and not impossible:
+                try:
+                    match = [vertice, local_neighbours[local_iteration]]
+                except IndexError:
+                    match = [vertice, local_neighbours[-1]]
+                if match[0] not in merged_matches and match[1] not in merged_matches:
+                    matches.append(match)
+                    added = True
+                else:
+                    wrong_value = merged_matches[merged_matches.index(match[1]) - 1]
+                    local_iteration += 1
+                    if local_iteration > len(local_neighbours) - 1:
+                        impossible = True
+            if not added: 
+                iterations[wrong_value] += 1
+                matches.clear()
                 break
-    if len(matches) == len(subset):
-        print('Istnieje skojarzenie doskonałe')
-    else:
-        print('Nie istnieje skojarzenie doskonałe')
-         
+        if len(matches) == len(subset):
+            done = True
+            print('Istnieje skojarzenie doskonałe')
+        elif max(iterations.values()) > len(max(neighbours, key=len)):
+            done = True
+            print('Nie istnieje skojarzenie doskonałe')
 
 
 if __name__ == "__main__":
     input_list = read_list()
-    expected1 = [[1, 5], [2, 5], [3, 5, 7, 8, 9], [4, 5, 6, 7, 9], [5, 1, 2, 3, 4], [6, 4], [7, 3, 4], [8, 3], [9, 3, 4]]
-    expected2 = [[1, 5, 8, 9], [2, 5], [3, 7, 8], [4, 6, 8], [5, 1, 2], [6, 4], [7, 3], [8, 1, 3, 4], [9, 1]]
-    if input_list != expected1 and input_list != expected2:
-        print(input_list)
+    # input_list = [[1, 26], [2, 20, 21, 22, 24, 26, 16], [3, 17, 18, 19, 21, 22], [4, 17, 19, 21, 26, 15], [5, 23, 11, 12, 14, 15], [6, 20, 22, 23, 12, 15, 16], [7, 17, 19, 20, 24, 12], [8, 21, 22, 23, 12, 14], [9, 17, 22, 23, 24, 25, 13, 14], [10, 17, 25, 13, 14, 15], [11, 5], [12, 5, 6, 7, 8], [13, 9, 10], [14, 5, 8, 9, 10], [15, 4, 5, 6, 10], [16, 2, 6], [17, 3, 4, 7, 9, 10], [18, 3], [19, 3, 4, 7], [20, 2, 6, 7], [21, 2, 3, 4, 8], [22, 2, 3, 6, 8, 9], [23, 5, 6, 8, 9], [24, 2, 7, 9], [25, 9, 10], [26, 1, 2, 4]]
     perfect_matching(input_list)
